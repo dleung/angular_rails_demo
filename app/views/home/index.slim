@@ -1,2 +1,42 @@
-div(ng-controller='HomeController')
-  p {{home.message}}
+div(ng-controller='CheckCalcController')
+  form
+    fieldset
+      label
+        | Enter Check Total
+ 			field
+        input(ng-model='check.total')
+    fieldset
+      label
+        | Number of People
+      field
+        input(ng-model='check.number_of_people')
+    fieldset
+      label
+        | Gratuity
+      field
+        input(ng-model='check.gratuity')
+    fieldset
+      label
+        | Tax
+      field
+        input(ng-model='check.tax')
+  table
+    tr
+      th Person
+      th Before Tax
+      th 
+      th Amount Per Person
+    tr(ng-repeat='(person, attributes) in persons') 
+      td 
+        input(ng-model='attributes.name')
+      td
+        input(ng-model='attributes.raw_total' ng-change='lockPerson()')
+      td
+        input(type='checkbox' ng-model='attributes.locked' ng-click='toggleLocked()')
+      td {{attributes.total | currency}}
+    tr
+      td Total
+      td {{check.raw_total | currency}}
+      td
+      td {{check.grand_total | currency}}
+  div(ui-view="")
